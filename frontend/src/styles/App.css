@@ -3,26 +3,71 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.app-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.app-header h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  background-color: #f8fafc;
 }
 
 .app-main {
   flex: 1;
-  padding: 2rem;
+  padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+}
+
+/* Loading and Auth States */
+.loading-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+}
+
+.loading-spinner {
+  text-align: center;
+}
+
+.loading-spinner .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+.loading-spinner p {
+  color: #718096;
+  font-size: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.unauthorized-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+}
+
+.unauthorized-message {
+  text-align: center;
+  color: #718096;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.unauthorized-message h3 {
+  color: #1a202c;
+  margin-bottom: 8px;
+  font-size: 20px;
 }
 
 /* Welcome Screen */
@@ -73,14 +118,6 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .app-main {
-    padding: 1rem;
-  }
-  
-  .app-header {
-    padding: 1rem;
-  }
-  
-  .app-header h1 {
-    font-size: 1.25rem;
+    padding: 16px;
   }
 }

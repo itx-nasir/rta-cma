@@ -1,12 +1,12 @@
 # app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import camera, camera_action, location, nvr_device
+from app.api import camera, camera_action, location, nvr_device, auth
 
 app = FastAPI(
     title="RTA Camera Management API",
-    description="Advanced Camera Management System with comprehensive filtering, search, and pagination",
-    version="2.0.0"
+    description="Advanced Camera Management System with comprehensive filtering, search, pagination, and authentication",
+    version="2.1.0"
 )
 
 # Configure CORS middleware for frontend access
@@ -19,6 +19,7 @@ app.add_middleware(
 )
 
 # Include API routers
+app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(camera.router, prefix="/cameras", tags=["Cameras"])
 app.include_router(location.router, prefix="/locations", tags=["Locations"])
 app.include_router(nvr_device.router, prefix="/nvrs", tags=["NVR Devices"])
@@ -30,6 +31,8 @@ def read_root():
         "message": "RTA Camera Management API",
         "version": "2.0.0",
         "features": [
+            "JWT Authentication & Authorization",
+            "Role-based access control (Admin, Operator, Viewer)",
             "Advanced filtering and search",
             "Pagination support",
             "Sorting capabilities",

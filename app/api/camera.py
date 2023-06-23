@@ -3,6 +3,11 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 
 from app.db.session import get_db
+from app.core.permissions import (
+    get_current_user_optional, require_create_permission, 
+    require_edit_permission, require_delete_permission
+)
+from app.models.user import User
 from app.schemas.camera import CameraCreate, CameraRead, CameraPaginatedResponse
 from app.services.camera_service import (
     create_camera, get_cameras, get_camera_by_id, get_cameras_with_filters,
@@ -13,7 +18,11 @@ from app.core.pagination import PaginatedResponse, SortOrder
 router = APIRouter()
 
 @router.post("/", response_model=CameraRead)
-def api_create_camera(camera: CameraCreate, db: Session = Depends(get_db)):
+def api_create_camera(
+    camera: CameraCreate, 
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_create_permission)
+):
     return create_camera(db, camera)
 
 @router.get("/", response_model=CameraPaginatedResponse)
@@ -29,7 +38,8 @@ def api_get_cameras(
     sort_by: Optional[str] = Query(None, description="Sort by field (id, camera_name, serial_no, status, etc.)"),
     sort_order: SortOrder = Query(SortOrder.asc, description="Sort order"),
     include_relations: bool = Query(False, description="Include location and NVR details"),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: Optional[User] = Depends(get_current_user_optional)
 ):
     """
     Get cameras with advanced filtering, search, and pagination
@@ -133,7 +143,8 @@ def api_search_cameras(
 def api_update_camera(
     camera_id: int,
     camera_update: CameraCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_edit_permission)
 ):
     """Update a camera"""
     from app.services.camera_service import update_camera
@@ -143,7 +154,11 @@ def api_update_camera(
     return db_camera
 
 @router.delete("/{camera_id}")
-def api_delete_camera(camera_id: int, db: Session = Depends(get_db)):
+def api_delete_camera(
+    camera_id: int, 
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_delete_permission)
+):
     """Delete a camera"""
     from app.services.camera_service import delete_camera
     success = delete_camera(db, camera_id)
