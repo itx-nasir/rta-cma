@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Lock, User, Eye, EyeOff, AlertCircle, LogIn } from 'lucide-react';
+import { Lock, Eye, EyeOff, AlertCircle, LogIn } from 'lucide-react';
 import '../styles/Login.css';
 
 const Login = () => {
@@ -61,6 +61,15 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-wrapper">
+        {isSubmitting && (
+          <div className="loading-overlay">
+            <div className="loading-content">
+              <div className="loading-spinner"></div>
+              <div className="loading-text">Signing in...</div>
+            </div>
+          </div>
+        )}
+        
         <div className="login-header">
           <div className="login-icon">
             <Lock />
@@ -80,7 +89,6 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="username">Username or Email</label>
             <div className="input-wrapper">
-              <User className="input-icon" />
               <input
                 type="text"
                 id="username"
@@ -98,7 +106,6 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <div className="input-wrapper">
-              <Lock className="input-icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
@@ -124,20 +131,11 @@ const Login = () => {
 
           <button
             type="submit"
-            className={`login-button ${isSubmitting ? 'loading' : ''}`}
+            className="login-button"
             disabled={isSubmitting || !formData.username.trim() || !formData.password}
           >
-            {isSubmitting ? (
-              <>
-                <div className="spinner" />
-                Signing In...
-              </>
-            ) : (
-              <>
-                <LogIn />
-                Sign In
-              </>
-            )}
+            <LogIn />
+            Sign In
           </button>
         </form>
 

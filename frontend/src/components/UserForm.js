@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, User, Mail, Shield, MapPin, Eye, EyeOff } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import { authService } from '../services/auth';
 import { UserRole } from '../contexts/AuthContext';
 import '../styles/UserForm.css';
@@ -105,7 +105,6 @@ const UserForm = ({ user, isOpen, onSave, onCancel }) => {
           <div className="form-group">
             <label htmlFor="full_name">Full Name *</label>
             <div className="input-wrapper">
-              <User className="input-icon" />
               <input
                 type="text"
                 id="full_name"
@@ -122,7 +121,6 @@ const UserForm = ({ user, isOpen, onSave, onCancel }) => {
           <div className="form-group">
             <label htmlFor="username">Username *</label>
             <div className="input-wrapper">
-              <User className="input-icon" />
               <input
                 type="text"
                 id="username"
@@ -142,7 +140,6 @@ const UserForm = ({ user, isOpen, onSave, onCancel }) => {
           <div className="form-group">
             <label htmlFor="email">Email *</label>
             <div className="input-wrapper">
-              <Mail className="input-icon" />
               <input
                 type="email"
                 id="email"
@@ -160,7 +157,6 @@ const UserForm = ({ user, isOpen, onSave, onCancel }) => {
             <div className="form-group">
               <label htmlFor="password">Password *</label>
               <div className="input-wrapper">
-                <Shield className="input-icon" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
@@ -189,7 +185,6 @@ const UserForm = ({ user, isOpen, onSave, onCancel }) => {
           <div className="form-group">
             <label htmlFor="role">Role *</label>
             <div className="input-wrapper">
-              <Shield className="input-icon" />
               <select
                 id="role"
                 name="role"
@@ -211,7 +206,6 @@ const UserForm = ({ user, isOpen, onSave, onCancel }) => {
           <div className="form-group">
             <label htmlFor="assigned_location_id">Assigned Location (Optional)</label>
             <div className="input-wrapper">
-              <MapPin className="input-icon" />
               <input
                 type="number"
                 id="assigned_location_id"
