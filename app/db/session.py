@@ -7,8 +7,11 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Enable SQL logging in development only
+SQL_ECHO = os.getenv("SQL_ECHO", "false").lower() == "true"
+
 # Create engine
-engine = create_engine(DATABASE_URL, echo=True, future=True)
+engine = create_engine(DATABASE_URL, echo=SQL_ECHO, future=True)
 
 # Session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -142,22 +142,9 @@ const Login = () => {
         </form>
 
         <div className="login-footer">
-          <div className="demo-credentials">
-            <h4>Demo Credentials:</h4>
-            <div className="demo-accounts">
-              <div className="demo-account">
-                <strong>Administrator:</strong>
-                <span>admin / admin123</span>
-              </div>
-              <div className="demo-account">
-                <strong>Operator:</strong>
-                <span>operator / operator123</span>
-              </div>
-              <div className="demo-account">
-                <strong>Viewer:</strong>
-                <span>viewer / viewer123</span>
-              </div>
-            </div>
+          <div className="system-info">
+            <p>RTA Camera Management System</p>
+            <p>Roads and Transport Authority</p>
           </div>
         </div>
       </div>

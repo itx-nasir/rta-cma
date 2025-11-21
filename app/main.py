@@ -2,17 +2,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import camera, camera_action, location, nvr_device, auth
+from app.core.config import settings
 
 app = FastAPI(
-    title="RTA Camera Management API",
-    description="Advanced Camera Management System with comprehensive filtering, search, pagination, and authentication",
-    version="2.1.0"
+    title=settings.APP_NAME,
+    description=settings.APP_DESCRIPTION,
+    version=settings.APP_VERSION,
+    debug=settings.DEBUG
 )
 
 # Configure CORS middleware for frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # React dev server
+    allow_origins=settings.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,8 +30,9 @@ app.include_router(camera_action.router, prefix="/actions", tags=["Camera Action
 @app.get("/")
 def read_root():
     return {
-        "message": "RTA Camera Management API",
-        "version": "2.0.0",
+        "message": settings.APP_NAME,
+        "version": settings.APP_VERSION,
+        "environment": settings.ENVIRONMENT,
         "features": [
             "JWT Authentication & Authorization",
             "Role-based access control (Admin, Operator, Viewer)",
@@ -37,7 +40,10 @@ def read_root():
             "Pagination support",
             "Sorting capabilities",
             "Date range filtering",
-            "Related entity inclusion"
+            "Related entity inclusion",
+            "Location management",
+            "NVR device management",
+            "Camera action audit trail"
         ]
     }
 

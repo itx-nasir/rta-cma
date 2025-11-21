@@ -49,10 +49,9 @@ A web application for managing security cameras across RTA locations with role-b
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/docs
 
-**Demo Login:**
-- Admin: `admin` / `admin123`
-- Operator: `operator` / `oper123`
-- Viewer: `viewer` / `view123`
+**Initial Login:**
+Use the administrator credentials you created with the setup script.
+Access the system at: http://localhost:3000
 
 ## ✅ Features & Functionality
 

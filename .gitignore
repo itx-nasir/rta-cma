@@ -45,6 +45,16 @@ htmlcov/
 coverage.xml
 *.cover
 .hypothesis/
+tests/
+
+# Production files
+*.pid
+*.sock
+gunicorn.conf.py
+nginx.conf
+*.pem
+*.key
+*.crt
 
 # Jupyter Notebook
 .ipynb_checkpoints
